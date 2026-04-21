@@ -73,9 +73,21 @@ modal.addEventListener('click', (e) => {
 // Musiqa boshqaruvi
 // ============================================
 let musicPlaying = false;
+let musicLoaded = false;
+
+// Fayl yuklanganmi yoki yo'qligini tekshirish
+music.addEventListener('canplaythrough', () => {
+  musicLoaded = true;
+  console.log('✓ Musiqa fayli yuklandi');
+});
+
+music.addEventListener('error', (e) => {
+  console.warn('⚠️ Musiqa faylini yuklab bo\'lmadi. "happy-birthday-piano.mp3" fayli mavjudligini tekshiring.');
+  console.warn('Error:', music.error);
+});
 
 function playMusic() {
-  music.volume = 0.25; // Past tovush (1.0 — maksimal)
+  music.volume = 0.25; // Past tovush (0.0 - 1.0)
   const playPromise = music.play();
 
   if (playPromise !== undefined) {
@@ -85,14 +97,16 @@ function playMusic() {
         musicOn.style.display = 'block';
         musicOff.style.display = 'none';
         musicToggle.classList.add('playing');
+        console.log('♪ Musiqa boshlandi');
       })
       .catch((err) => {
-        // Avto-play bloklangan bo'lsa - tinchgina o'tamiz
-        console.log('Autoplay blocked — user needs to click the button');
         musicPlaying = false;
         musicOn.style.display = 'none';
         musicOff.style.display = 'block';
         musicToggle.classList.remove('playing');
+        console.log('Musiqa bloklangan:', err.message);
+        // Foydalanuvchiga indikator - tugma pulse qilsin
+        musicToggle.classList.add('attention');
       });
   }
 }
@@ -106,12 +120,25 @@ function pauseMusic() {
 }
 
 musicToggle.addEventListener('click', () => {
+  musicToggle.classList.remove('attention');
   if (musicPlaying) {
     pauseMusic();
   } else {
     playMusic();
   }
 });
+
+// Birinchi tap/click bo'lsa - musiqani boshlashga urinish (ishonchli)
+let firstInteractionHandled = false;
+function handleFirstInteraction() {
+  if (firstInteractionHandled) return;
+  firstInteractionHandled = true;
+  if (!musicPlaying) {
+    playMusic();
+  }
+}
+document.addEventListener('click', handleFirstInteraction, { once: false });
+document.addEventListener('touchstart', handleFirstInteraction, { once: false });
 
 // ============================================
 // Gullar yog'ilishi (petals)
