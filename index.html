@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Odina — 14-may tug'ilgan kun taklifnomasi" />
+  <title>Odina — Tug'ilgan kun taklifnomasi 🌸</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Musiqa tugmasi -->
+  <button id="musicToggle" class="music-toggle" aria-label="Musiqani yoqish/o'chirish">
+    <svg id="musicOn" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18V5l12-2v13"></path>
+      <circle cx="6" cy="18" r="3"></circle>
+      <circle cx="18" cy="16" r="3"></circle>
+    </svg>
+    <svg id="musicOff" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <line x1="1" y1="1" x2="23" y2="23"></line>
+      <path d="M9 9v9a3 3 0 0 1-3 3 3 3 0 0 1-3-3 3 3 0 0 1 3-3h3zm12-6v3"></path>
+      <path d="M9 6.18V5l12-2v13"></path>
+    </svg>
+  </button>
+
+  <!-- "Sizni yaxshi ko'ramiz" widget -->
+  <div id="loveWidget" class="love-widget">
+    <div class="love-widget__img">
+      <!-- Chiroyli SVG qiz belgi -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Shlyapa -->
+        <ellipse cx="50" cy="35" rx="30" ry="6" fill="#e8c89a"/>
+        <path d="M 32 35 Q 50 20 68 35 L 65 35 Q 50 25 35 35 Z" fill="#d9b47c"/>
+        <!-- Gul shlyapada -->
+        <circle cx="35" cy="33" r="3" fill="#ff6b9d"/>
+        <circle cx="35" cy="33" r="1.2" fill="#fff5ab"/>
+        <!-- Bosh -->
+        <circle cx="50" cy="45" r="12" fill="#fff"/>
+        <!-- Yonoqlar -->
+        <circle cx="44" cy="48" r="2" fill="#ffb3c6" opacity="0.7"/>
+        <circle cx="56" cy="48" r="2" fill="#ffb3c6" opacity="0.7"/>
+        <!-- Ko'zlar -->
+        <path d="M 43 44 Q 45 46 47 44" stroke="#333" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M 53 44 Q 55 46 57 44" stroke="#333" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <!-- Tana -->
+        <path d="M 40 56 Q 50 54 60 56 L 62 72 Q 50 74 38 72 Z" fill="#f5a5b8"/>
+      </svg>
+    </div>
+    <span class="love-widget__text">Sizni yaxshi ko'ramiz 💖</span>
+  </div>
+
+  <!-- Modal (birinchi tashrif) -->
+  <div id="welcomeModal" class="modal-overlay">
+    <div class="modal">
+      <div class="modal__img">
+        <svg viewBox="0 0 120 130" xmlns="http://www.w3.org/2000/svg">
+          <!-- Shlyapa -->
+          <ellipse cx="60" cy="40" rx="38" ry="8" fill="#e8c89a"/>
+          <path d="M 35 40 Q 60 20 85 40 L 82 40 Q 60 28 38 40 Z" fill="#d9b47c"/>
+          <!-- Gul -->
+          <g transform="translate(38,36)">
+            <circle cx="0" cy="0" r="4" fill="#ff6b9d"/>
+            <circle cx="0" cy="0" r="1.5" fill="#fff5ab"/>
+          </g>
+          <!-- Bosh -->
+          <circle cx="60" cy="55" r="16" fill="#fff"/>
+          <!-- Yonoqlar -->
+          <circle cx="52" cy="60" r="2.5" fill="#ffb3c6" opacity="0.7"/>
+          <circle cx="68" cy="60" r="2.5" fill="#ffb3c6" opacity="0.7"/>
+          <!-- Ko'zlar -->
+          <path d="M 50 54 Q 53 57 56 54" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M 64 54 Q 67 57 70 54" stroke="#333" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <!-- Tana -->
+          <path d="M 46 70 Q 60 68 74 70 L 78 95 Q 60 98 42 95 Z" fill="#f5a5b8"/>
+          <!-- Imzo -->
+          <text x="60" y="118" text-anchor="middle" font-family="monospace" font-size="7" fill="#999" letter-spacing="1">@ARC021</text>
+        </svg>
+      </div>
+      <h2 class="modal__title">Assalomu alaykum, aziz do'stim! <span class="heart">💗</span></h2>
+      <div class="modal__text">
+        <p><em>Odinajon</em>, sizni hayotimdagi eng qadrli</p>
+        <p>insonlardan biri deb bilaman.</p>
+        <p>Tug'ilgan kuningizga taklif qilaman! 🌸🌷💐</p>
+      </div>
+      <button id="closeModal" class="modal__btn">
+        Rahmat! <span class="btn-heart">💗</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Asosiy kontent -->
+  <main class="main">
+    <!-- Dekorativ elementlar -->
+    <div class="decor-pattern"></div>
+
+    <!-- Hero section -->
+    <section class="hero">
+      <div class="hero__date">
+        <span>14</span>
+        <span class="dot">•</span>
+        <span>MAY</span>
+        <span class="dot">•</span>
+        <span>2026</span>
+      </div>
+
+      <h1 class="hero__name">Odina</h1>
+
+      <p class="hero__subtitle">
+        yana bir yoshga ulg'aymoqda <span class="flower">🌸</span>
+      </p>
+
+      <div class="countdown-label">BAYRAMGACHA QOLGAN VAQT 🕊️</div>
+
+      <div class="countdown">
+        <div class="countdown__item">
+          <div class="countdown__number" id="days">00</div>
+          <div class="countdown__label">KUN</div>
+        </div>
+        <div class="countdown__item">
+          <div class="countdown__number" id="hours">00</div>
+          <div class="countdown__label">SOAT</div>
+        </div>
+        <div class="countdown__item">
+          <div class="countdown__number" id="minutes">00</div>
+          <div class="countdown__label">DAQIQA</div>
+        </div>
+        <div class="countdown__item">
+          <div class="countdown__number" id="seconds">00</div>
+          <div class="countdown__label">SONIYA</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Taklif xabari -->
+    <section class="invitation">
+      <div class="invitation__divider">
+        <span>✦</span>
+      </div>
+
+      <p class="invitation__greeting">Salom, do'stim!</p>
+
+      <p class="invitation__body">
+        Yana bir yoshga ulg'ayganimni yaqinlarim va<br />
+        eng vafodor do'stlarim davrasida kutib olmoqchiman.<br />
+        <br />
+        Hazil-huzul, shirin taomlar va yaxshi kayfiyat<br />
+        <em>kafolatlanadi!</em>
+      </p>
+
+      <p class="invitation__signature">Kelishingni kutib qolaman. 🌷</p>
+
+      <div class="password-card">
+        <div class="password-card__label">PAROL</div>
+        <div class="password-card__value">"Yaxshi kayfiyat"</div>
+        <div class="password-card__note">majburiy! ✨</div>
+      </div>
+    </section>
+
+    <!-- Xususiyatlar -->
+    <section class="features">
+      <div class="features__divider">
+        <span>✦</span>
+      </div>
+
+      <h3 class="features__title">Odina haqida bir og'iz</h3>
+
+      <div class="features__grid">
+        <div class="feature-card">
+          <div class="feature-card__icon">📚</div>
+          <div class="feature-card__text">Kitob sevuvchi</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">🔍</div>
+          <div class="feature-card__text">Detektiv janri</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">🌸</div>
+          <div class="feature-card__text">Gullarni sevadi</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">🌟</div>
+          <div class="feature-card__text">Odobli va tarbiyali</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">👏</div>
+          <div class="feature-card__text">Ilmda peshqadam</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">💐</div>
+          <div class="feature-card__text">Go'zallikni his etadi</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Happy Birthday -->
+    <section class="birthday-final">
+      <h2 class="birthday-final__title">
+        <span class="cake">🎂</span>
+        <span class="text">Happy Birthday!</span>
+        <span class="cake">🎂</span>
+      </h2>
+      <p class="birthday-final__subtitle">
+        Hayotning eng go'zal daqiqalari sizga yor bo'lsin!
+      </p>
+      <div class="birthday-final__signature">— Sizni sevuvchi do'stingiz</div>
+    </section>
+  </main>
+
+  <!-- Floating petals (gullar yog'ilishi) -->
+  <div class="petals" aria-hidden="true"></div>
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="happy-birthday-piano.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

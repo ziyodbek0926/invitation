@@ -1,0 +1,816 @@
+/* ============================================
+   ODINA — Tug'ilgan kun taklifnomasi
+   Aesthetic: soft romantic, rose-cream palette
+   ============================================ */
+
+:root {
+  /* Rang palitrasi */
+  --cream-bg: #faf3ec;
+  --cream-bg-2: #fff5ec;
+  --rose-light: #fde8ec;
+  --rose-soft: #f5d0d9;
+  --rose: #c4708a;
+  --rose-deep: #a85570;
+  --rose-text: #9d4661;
+  --text-muted: #b89ba3;
+  --text-soft: #8a6b73;
+  --gold: #d4a574;
+  --shadow-soft: 0 8px 30px rgba(196, 112, 138, 0.08);
+  --shadow-card: 0 4px 20px rgba(196, 112, 138, 0.12);
+
+  /* Typography */
+  --font-display: 'Playfair Display', 'Cormorant Garamond', serif;
+  --font-body: 'Cormorant Garamond', Georgia, serif;
+  --font-sans: 'Montserrat', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(
+    180deg,
+    var(--cream-bg-2) 0%,
+    var(--rose-light) 40%,
+    var(--cream-bg) 100%
+  );
+  min-height: 100vh;
+  font-family: var(--font-body);
+  color: var(--rose-deep);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Dekorativ nuqtalar fon */
+.decor-pattern {
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(245, 208, 217, 0.4) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(253, 232, 236, 0.5) 0%, transparent 40%),
+    radial-gradient(circle at 50% 10%, rgba(250, 243, 236, 0.6) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle, rgba(196, 112, 138, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   Musiqa tugmasi
+   ============================================ */
+.music-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+  color: white;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 6px 20px rgba(196, 112, 138, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.music-toggle:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 8px 25px rgba(196, 112, 138, 0.55);
+}
+
+.music-toggle.playing {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 6px 20px rgba(196, 112, 138, 0.4); }
+  50% { box-shadow: 0 6px 30px rgba(196, 112, 138, 0.7); }
+}
+
+/* ============================================
+   "Sizni yaxshi ko'ramiz" widget
+   ============================================ */
+.love-widget {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  z-index: 50;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.love-widget:hover {
+  transform: translateY(-4px);
+}
+
+.love-widget__img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 4px 15px rgba(196, 112, 138, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.love-widget__img svg {
+  width: 90%;
+  height: 90%;
+}
+
+.love-widget__text {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 11px;
+  color: var(--text-soft);
+  text-align: center;
+  max-width: 90px;
+  line-height: 1.3;
+}
+
+/* ============================================
+   Modal
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(88, 44, 58, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: white;
+  border-radius: 24px;
+  padding: 48px 40px 40px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(88, 44, 58, 0.3);
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-overlay.active .modal {
+  transform: scale(1) translateY(0);
+}
+
+.modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, var(--rose-soft), var(--rose), var(--gold), var(--rose-soft));
+  border-radius: 24px 24px 0 0;
+}
+
+.modal__img {
+  width: 120px;
+  height: 130px;
+  margin: 0 auto 20px;
+}
+
+.modal__img svg {
+  width: 100%;
+  height: 100%;
+}
+
+.modal__title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--rose-deep);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.modal__title .heart {
+  display: inline-block;
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.modal__text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  color: var(--text-soft);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 28px;
+}
+
+.modal__text p {
+  margin-bottom: 4px;
+}
+
+.modal__btn {
+  background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+  color: white;
+  border: none;
+  padding: 14px 44px;
+  border-radius: 40px;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(196, 112, 138, 0.35);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(196, 112, 138, 0.5);
+}
+
+.modal__btn .btn-heart {
+  display: inline-block;
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+/* ============================================
+   Main
+   ============================================ */
+.main {
+  position: relative;
+  z-index: 10;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+}
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  text-align: center;
+  padding: 60px 0 80px;
+  opacity: 0;
+  animation: fadeInUp 1.2s ease forwards 0.3s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero__date {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 4px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 400;
+}
+
+.hero__date .dot {
+  color: var(--rose);
+}
+
+.hero__name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(72px, 14vw, 170px);
+  font-weight: 600;
+  color: var(--rose-text);
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose) 50%, #d68aa0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 4px 20px rgba(196, 112, 138, 0.15);
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero__subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 28px);
+  color: var(--text-soft);
+  margin-bottom: 80px;
+  font-weight: 400;
+}
+
+.hero__subtitle .flower {
+  display: inline-block;
+  animation: spin-slow 8s linear infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.countdown-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.countdown {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.countdown__item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 22px 28px;
+  min-width: 108px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(245, 208, 217, 0.4);
+}
+
+.countdown__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(196, 112, 138, 0.2);
+}
+
+.countdown__number {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 44px;
+  font-weight: 500;
+  color: var(--rose-text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.countdown__label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ============================================
+   Invitation
+   ============================================ */
+.invitation {
+  text-align: center;
+  padding: 80px 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.invitation__divider,
+.features__divider {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.invitation__divider::before,
+.invitation__divider::after,
+.features__divider::before,
+.features__divider::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rose-soft), transparent);
+  align-self: center;
+  margin: 0 14px;
+}
+
+.invitation__divider span,
+.features__divider span {
+  color: var(--gold);
+  font-size: 20px;
+}
+
+.invitation__greeting {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(28px, 4vw, 40px);
+  color: var(--rose-text);
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.invitation__body {
+  font-family: var(--font-body);
+  font-size: clamp(18px, 2.5vw, 22px);
+  color: var(--text-soft);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.invitation__body em {
+  color: var(--rose);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.invitation__signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--rose-deep);
+  margin-bottom: 48px;
+}
+
+.password-card {
+  background: white;
+  border: 2px dashed var(--rose-soft);
+  border-radius: 20px;
+  padding: 28px 36px;
+  display: inline-block;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+.password-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 40%, rgba(245, 208, 217, 0.3) 50%, transparent 60%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translate(-100%, -100%); }
+  100% { transform: translate(100%, 100%); }
+}
+
+.password-card__label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.password-card__value {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--rose-text);
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.password-card__note {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--rose);
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   Features
+   ============================================ */
+.features {
+  padding: 60px 0 80px;
+  text-align: center;
+}
+
+.features__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(24px, 3.5vw, 32px);
+  color: var(--rose-text);
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 18px;
+  padding: 32px 20px;
+  box-shadow: var(--shadow-card);
+  transition: all 0.4s ease;
+  cursor: default;
+  border: 1px solid rgba(245, 208, 217, 0.4);
+}
+
+.feature-card:hover {
+  transform: translateY(-8px) rotate(-1deg);
+  box-shadow: 0 15px 35px rgba(196, 112, 138, 0.25);
+}
+
+.feature-card__icon {
+  font-size: 40px;
+  margin-bottom: 14px;
+  display: inline-block;
+  transition: transform 0.4s ease;
+}
+
+.feature-card:hover .feature-card__icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.feature-card__text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--rose-text);
+  font-weight: 500;
+}
+
+/* ============================================
+   Happy Birthday Final
+   ============================================ */
+.birthday-final {
+  text-align: center;
+  padding: 80px 0 40px;
+}
+
+.birthday-final__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(48px, 9vw, 110px);
+  font-weight: 700;
+  color: var(--rose-text);
+  line-height: 1.1;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.birthday-final__title .text {
+  background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose) 50%, #d68aa0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.birthday-final__title .cake {
+  font-size: 0.8em;
+  animation: wobble 3s ease-in-out infinite;
+}
+
+.birthday-final__title .cake:nth-child(3) {
+  animation-delay: 1.5s;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+.birthday-final__subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(18px, 2.5vw, 24px);
+  color: var(--text-soft);
+  margin-bottom: 16px;
+}
+
+.birthday-final__signature {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--rose);
+  margin-top: 20px;
+}
+
+/* ============================================
+   Floating petals
+   ============================================ */
+.petals {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -20px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 30% 30%, #ffb3c6, #f5a5b8);
+  border-radius: 50% 0 50% 0;
+  opacity: 0.7;
+  animation: fall linear infinite;
+}
+
+.petal:nth-child(odd) {
+  background: radial-gradient(circle at 30% 30%, #ffd4de, #f5a5b8);
+  width: 12px;
+  height: 12px;
+}
+
+.petal:nth-child(3n) {
+  background: radial-gradient(circle at 30% 30%, #fff0d9, #e8c89a);
+  width: 10px;
+  height: 10px;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) translateX(100px);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 640px) {
+  .main {
+    padding: 60px 16px 100px;
+  }
+
+  .hero {
+    padding: 40px 0 60px;
+  }
+
+  .hero__date {
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin-bottom: 28px;
+  }
+
+  .hero__subtitle {
+    margin-bottom: 60px;
+  }
+
+  .countdown {
+    gap: 10px;
+  }
+
+  .countdown__item {
+    min-width: 76px;
+    padding: 16px 14px;
+  }
+
+  .countdown__number {
+    font-size: 32px;
+  }
+
+  .countdown__label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+  }
+
+  .invitation {
+    padding: 60px 0;
+  }
+
+  .password-card {
+    padding: 20px 24px;
+  }
+
+  .password-card__value {
+    font-size: 22px;
+  }
+
+  .features__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .feature-card {
+    padding: 24px 12px;
+  }
+
+  .feature-card__icon {
+    font-size: 32px;
+  }
+
+  .feature-card__text {
+    font-size: 15px;
+  }
+
+  .birthday-final__title {
+    gap: 10px;
+  }
+
+  .modal {
+    padding: 36px 24px 28px;
+  }
+
+  .modal__title {
+    font-size: 22px;
+  }
+
+  .modal__text {
+    font-size: 16px;
+  }
+
+  .love-widget__text {
+    font-size: 10px;
+    max-width: 72px;
+  }
+
+  .love-widget__img {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Tanlash effekti */
+::selection {
+  background: var(--rose-soft);
+  color: var(--rose-deep);
+}
