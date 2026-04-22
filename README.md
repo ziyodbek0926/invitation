@@ -1,8 +1,6 @@
-# 🌸 Odina — Tug'ilgan kun taklifnomasi
+# 🌸 Tug'ilgan kun taklifnomasi
 
-**Odina**ning 14-may tug'ilgan kuniga bag'ishlangan nafis va kreativ web-taklifnoma.
-
-Shahlo sahifasi (`shahlo.vercel.app`) asosida yaratilgan — pushti-kremrang palitra, Playfair Display italic shrift, gullar yog'ilishi va piano orqa fon musiqasi.
+tug'ilgan kunga bag'ishlangan nafis va kreativ web-taklifnoma.
 
 ---
 
@@ -20,28 +18,8 @@ odina-invitation/
 
 ---
 
-## 🎵 MUHIM: Musiqa faylini qo'shish
-
-Loyiha orqa fonda **"Happy Birthday"ning piano versiyasi** past tovushda (volume 25%) ijro etilishini kutadi.
-
-### Qayerdan topish mumkin:
-
-1. **Pixabay (bepul, telifsiz):**  
-   https://pixabay.com/music/search/happy%20birthday%20piano/
-
-2. **YouTube Audio Library** (bepul, telifsiz)
-
-3. **Freesound.org**
-
-Topilgan `.mp3` faylni **`happy-birthday-piano.mp3`** deb nomlab, loyiha ildiziga qo'ying (index.html yonida).
-
-> **Eslatma:** Brauzerlar avto-play ni bloklashi mumkin. Foydalanuvchi **"Rahmat!"** tugmasini bosganidan so'ng musiqa avtomatik boshlanadi. Pastdagi pushti tugma orqali ham boshqarish mumkin.
-
----
 
 ## 🚀 Vercelga deploy qilish
-
-### 1-usul — Vercel CLI orqali (eng tez)
 
 ```bash
 # Vercel CLI o'rnatish (bir marta)
@@ -57,7 +35,7 @@ vercel
 vercel --prod
 ```
 
-### 2-usul — GitHub + Vercel Dashboard
+### GitHub + Vercel Dashboard
 
 1. Papkani GitHub repo sifatida push qiling:
    ```bash
@@ -68,17 +46,7 @@ vercel --prod
    git remote add origin https://github.com/USERNAME/odina-invitation.git
    git push -u origin main
    ```
-2. [vercel.com/new](https://vercel.com/new) ga kiring
-3. Repo'ni import qiling — **Framework Preset**: `Other`
-4. **Deploy** tugmasini bosing
-
-### 3-usul — Drag & Drop (eng oson)
-
-1. Papkani zip qiling
-2. [vercel.com/new](https://vercel.com/new) da "Browse" → zip tanlang
-
 ---
-
 ## ✨ Xususiyatlar
 
 - 🎀 **Welcome modal** — sahifa ochilganda "Assalomu alaykum, aziz do'stim!" xabari
